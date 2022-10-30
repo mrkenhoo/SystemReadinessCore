@@ -63,7 +63,7 @@ namespace SystemReadinessCore.Libraries
                     catch (Exception ex)
                     {
                         MessagesManager.ShowMessage(messageBoxText: ex.Message,
-                                                caption: "Error",
+                                                caption: ex.Source,
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                     }

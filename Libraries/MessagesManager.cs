@@ -5,18 +5,29 @@ namespace SystemReadinessCore.Libraries
 {
     public class MessagesManager
     {
-        public static void ShowMessage(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+        public static void ShowMessage(string messageBoxText,
+                                       string? caption,
+                                       MessageBoxButton button,
+                                       MessageBoxImage icon,
+                                       bool validateUserInput = false)
         {
             try
             {
-                MessageBox.Show(messageBoxText, caption, button, icon);
+                if (!validateUserInput)
+                {
+                    MessageBox.Show(messageBoxText, caption, button, icon);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
             catch (Exception ex)
             {
-                ShowMessage(messageBoxText: ex.Message,
-                                            caption: "Error",
-                                            button: MessageBoxButton.OK,
-                                            icon: MessageBoxImage.Error);
+                MessageBox.Show(messageBoxText: ex.Message,
+                                caption: ex.Source,
+                                button: MessageBoxButton.OK,
+                                icon: MessageBoxImage.Error);
             }
         }
     }

@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
 
 namespace SystemReadinessCore.Libraries
 {
     public class ProcessManager
     {
-        protected static int ExitCode => Environment.ExitCode;
-
         public static void NewProcess(string fileName, string? args)
         {
             try
@@ -23,18 +19,11 @@ namespace SystemReadinessCore.Libraries
                 process.Start();
                 process.WaitForExit();
                 process.Close();
-                if (ExitCode == 1)
-                {
-                    MessagesManager.ShowMessage(messageBoxText: "Something went wrong.",
-                                                caption: "Error",
-                                                button: MessageBoxButton.OK,
-                                                icon: MessageBoxImage.Error);
-                }
             }
             catch (Exception ex)
             {
                 MessagesManager.ShowMessage(messageBoxText: ex.Message,
-                                            caption: "Error",
+                                            caption: ex.Source,
                                             button: MessageBoxButton.OK,
                                             icon: MessageBoxImage.Error);
             }

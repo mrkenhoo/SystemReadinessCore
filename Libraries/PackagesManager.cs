@@ -27,7 +27,7 @@ namespace SystemReadinessCore.Libraries
                     catch (Exception ex)
                     {
                         MessagesManager.ShowMessage(messageBoxText: ex.Message,
-                                                    caption: "Error",
+                                                    caption: ex.Source,
                                                     button: MessageBoxButton.OK,
                                                     icon: MessageBoxImage.Error);
                     }
@@ -48,7 +48,7 @@ namespace SystemReadinessCore.Libraries
                 if (!DependenciesManager.IsWingetInstalled())
                 {
                     MessagesManager.ShowMessage(messageBoxText: $"Cannot uninstall {packageName} because winget is either not installed or outdated.",
-                                                caption: "Error",
+                                                caption: ex.Source,
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                 }
@@ -70,7 +70,7 @@ namespace SystemReadinessCore.Libraries
                     catch (Exception ex)
                     {
                         MessagesManager.ShowMessage(messageBoxText: ex.Message,
-                                                    caption: "Error",
+                                                    caption: ex.Source,
                                                     button: MessageBoxButton.OK,
                                                     icon: MessageBoxImage.Error);
                     }
@@ -78,7 +78,7 @@ namespace SystemReadinessCore.Libraries
             }
             else
             {
-                MessagesManager.ShowMessage(messageBoxText: $"Before uninstalling {packageName}, make sure you are not running this program as administrator.",
+                MessagesManager.ShowMessage(messageBoxText: $"Cannot install {packageName} as administrator.",
                                             caption: "Error",
                                             button: MessageBoxButton.OK,
                                             icon: MessageBoxImage.Error);

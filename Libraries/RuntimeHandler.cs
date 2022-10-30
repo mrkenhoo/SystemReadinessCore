@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
+using System.Windows;
 
 namespace SystemReadinessCore.Libraries
 {
@@ -29,10 +28,10 @@ namespace SystemReadinessCore.Libraries
                     isRunning = false;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessagesManager.ShowMessage(messageBoxText: e.Message,
-                                            caption: "Error",
+                MessagesManager.ShowMessage(messageBoxText: ex.Message,
+                                            caption: ex.Source,
                                             button: MessageBoxButton.OK,
                                             icon: MessageBoxImage.Error);
             }

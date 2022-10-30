@@ -6,7 +6,7 @@ namespace SystemReadinessCore.Libraries
 {
     public class TaskManager
     {
-        protected static int ExitCode => Environment.ExitCode;
+        public static int ExitCode { get; set; }
 
         public static void CreateTask(string TaskName,
                                       string ExecutableFile,
@@ -28,8 +28,7 @@ namespace SystemReadinessCore.Libraries
                         new DailyTrigger
                         {
                             DaysInterval = NumberOfDays
-                        }
-                    );
+                        });
 
                     td.Actions.Add(
                         new ExecAction(
@@ -57,7 +56,7 @@ namespace SystemReadinessCore.Libraries
                 catch (Exception ex)
                 {
                     MessagesManager.ShowMessage(messageBoxText: $"Cannot create the task {TaskName}. {ex.Message}",
-                                                caption: "Error",
+                                                caption: ex.Source,
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                 }
@@ -83,7 +82,7 @@ namespace SystemReadinessCore.Libraries
                     if (ExitCode == 1)
                     {
                         MessagesManager.ShowMessage(messageBoxText: $"Could not remove the task {TaskName}.",
-                                                    caption: "Error",
+                                                    caption: ex.Source,
                                                     button: MessageBoxButton.OK,
                                                     icon: MessageBoxImage.Error);
                     }
@@ -98,7 +97,7 @@ namespace SystemReadinessCore.Libraries
                 catch (Exception ex)
                 {
                     MessagesManager.ShowMessage(messageBoxText: $"Could not remove the task {TaskName}. {ex.Message}",
-                                                caption: "Error",
+                                                caption: ex.Source,
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                 }
