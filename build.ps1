@@ -12,7 +12,7 @@ If (Test-Path -Path "build\")
 else
 {
     dotnet publish "SystemReadinessCore.csproj" --nologo --self-contained --runtime win-x64 --configuration Release --output "build\"
-    dotnet test SystemReadinessCore.csproj --no-build --verbosity normal -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
+    dotnet test SystemReadinessCore.csproj --no-build --verbosity normal
 }
 
 Remove-Item -Path "bin\" -Recurse -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
