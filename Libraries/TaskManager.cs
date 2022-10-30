@@ -82,7 +82,7 @@ namespace SystemReadinessCore.Libraries
                     if (ExitCode == 1)
                     {
                         MessagesManager.ShowMessage(messageBoxText: $"Could not remove the task {TaskName}.",
-                                                    caption: ex.Source,
+                                                    caption: "Error",
                                                     button: MessageBoxButton.OK,
                                                     icon: MessageBoxImage.Error);
                     }
