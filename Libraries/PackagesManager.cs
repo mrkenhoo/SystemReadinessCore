@@ -48,7 +48,7 @@ namespace SystemReadinessCore.Libraries
                 if (!DependenciesManager.IsWingetInstalled())
                 {
                     MessagesManager.ShowMessage(messageBoxText: $"Cannot uninstall {packageName} because winget is either not installed or outdated.",
-                                                caption: ex.Source,
+                                                caption: "Error",
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                 }
