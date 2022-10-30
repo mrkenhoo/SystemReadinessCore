@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>True</UseWPF>
+		<PlatformTarget>x64</PlatformTarget>
+		<ErrorReport>none</ErrorReport>
+		<Authors>Ken Hoo</Authors>
+		<Company>Ken Hoo</Company>
+		<Product>System Readiness Core</Product>
+		<Description>System Readiness for Workstations is an automated privacy-focused configuration tool which debloats and tweaks any compatible Windows version and edition to improve it's performance and reduce the user's footprint as much as possible.</Description>
+		<Copyright>GNU General Public License v3.0</Copyright>
+		<RepositoryUrl>https://github.com/mrkenhoo/SystemReadinessCore/</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<AssemblyName>SystemReadinessCore</AssemblyName>
+		<Version>1.0.0.0</Version>
+		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<LangVersion>latest</LangVersion>
+		<Platforms>x64</Platforms>
+		<ProduceReferenceAssembly></ProduceReferenceAssembly>
+		<SignAssembly>False</SignAssembly>
+		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+		<Title>System Readiness</Title>
+		<IncludeSymbols>False</IncludeSymbols>
+		<RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<DebugType>embedded</DebugType>
+		<Deterministic>True</Deterministic>
+		<Optimize>False</Optimize>
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+		<NoWarn>1701;1702</NoWarn>
+		<WarningsAsErrors>$(WarningsAsErrors)</WarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<DebugType>none</DebugType>
+		<Deterministic>True</Deterministic>
+		<Optimize>True</Optimize>
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+		<NoWarn>1701;1702</NoWarn>
+		<WarningsAsErrors>$(WarningsAsErrors)</WarningsAsErrors>
+		<PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb","$(TargetDir)*.ini" "$(TargetDir)createdump.exe</PostBuildEvent>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="build\**" />
+	  <Compile Remove="SystemReadinessWorkstations\**" />
+	  <EmbeddedResource Remove="build\**" />
+	  <EmbeddedResource Remove="SystemReadinessWorkstations\**" />
+	  <None Remove="build\**" />
+	  <None Remove="SystemReadinessWorkstations\**" />
+	  <Page Remove="build\**" />
+	  <Page Remove="SystemReadinessWorkstations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove=".gitignore" />
+	  <None Remove="build.bat" />
+	  <None Remove="Makefile" />
+		<None Remove="README.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="TaskScheduler" Version="2.10.1" />
+	</ItemGroup>
+</Project>
