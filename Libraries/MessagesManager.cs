@@ -5,7 +5,7 @@ namespace SystemReadinessCore.Libraries
 {
     public class MessagesManager
     {
-        public static void ShowMessage(string messageBoxText,
+        public static MessageBoxResult ShowMessage(string messageBoxText,
                                        string? caption,
                                        MessageBoxButton button,
                                        MessageBoxImage icon,
@@ -19,7 +19,9 @@ namespace SystemReadinessCore.Libraries
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    MessageBoxResult messageBoxResult = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    return messageBoxResult;
                 }
             }
             catch (Exception ex)
@@ -29,6 +31,7 @@ namespace SystemReadinessCore.Libraries
                                 button: MessageBoxButton.OK,
                                 icon: MessageBoxImage.Error);
             }
+            return 0;
         }
     }
 }
