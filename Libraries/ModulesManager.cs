@@ -8,6 +8,11 @@ namespace SystemReadinessCore.Libraries
     {
         public static void InstallModules()
         {
+            string repositoryUrl = "https://github.com/mrkenhoo/PowerShell-Modules.git";
+            string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw";
+            string sourcePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw\\PowerShell-Modules\\CustomModules";
+            string destinationPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\WindowsPowerShell\\v1.0\\Modules";
+
             if (PrivilegesManager.IsUserAdmin())
             {
                 if (!File.Exists($"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\Git\\bin\\git.exe"))
@@ -17,10 +22,6 @@ namespace SystemReadinessCore.Libraries
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                 }
-                string repositoryUrl = "https://github.com/mrkenhoo/PowerShell-Modules.git";
-                string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw";
-                string sourcePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw\\PowerShell-Modules\\CustomModules";
-                string destinationPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\WindowsPowerShell\\v1.0\\Modules";
                 if (!Directory.Exists(repositoryPath))
                 {
                     Directory.CreateDirectory(repositoryPath);
@@ -47,11 +48,12 @@ namespace SystemReadinessCore.Libraries
         }
         public static void UninstallModules()
         {
+            string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw";
+            string sourcePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw\\PowerShell-Modules\\CustomModules";
+            string destinationPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\WindowsPowerShell\\v1.0\\Modules";
+
             if (PrivilegesManager.IsUserAdmin())
             {
-                string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw";
-                string sourcePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw\\PowerShell-Modules\\CustomModules";
-                string destinationPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\WindowsPowerShell\\v1.0\\Modules";
                 if (Directory.Exists($"{repositoryPath}\\PowerShell-Modules"))
                 {
                     try
