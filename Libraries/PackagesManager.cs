@@ -78,7 +78,7 @@ namespace SystemReadinessCore.Libraries
             }
             else
             {
-                MessagesManager.ShowMessage(messageBoxText: $"Cannot install {packageName} as administrator.",
+                MessagesManager.ShowMessage(messageBoxText: $"Cannot uninstall {packageName} as administrator.",
                                             caption: "Error",
                                             button: MessageBoxButton.OK,
                                             icon: MessageBoxImage.Error);
