@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
@@ -31,6 +30,7 @@
 		<AnalysisLevel>latest-recommended</AnalysisLevel>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
