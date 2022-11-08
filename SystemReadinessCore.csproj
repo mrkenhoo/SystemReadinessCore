@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+		<TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>True</UseWPF>
 		<PlatformTarget>x64</PlatformTarget>
@@ -13,11 +13,10 @@
 		<Copyright>GNU General Public License v3.0</Copyright>
 		<RepositoryUrl>https://github.com/mrkenhoo/SystemReadinessCore/</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion>
-		<FileVersion>1.0.0.0</FileVersion>
+		<AssemblyVersion>1.0.0.1</AssemblyVersion>
+		<FileVersion>1.0.0.1</FileVersion>
 		<AssemblyName>SystemReadinessCore</AssemblyName>
-		<Version>1.0.0.0</Version>
-		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+		<Version>1.0.0.1</Version>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<LangVersion>latest</LangVersion>
 		<Platforms>x64</Platforms>
@@ -31,6 +30,7 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -51,29 +51,11 @@
 		<DefineConstants>$(DefineConstants)</DefineConstants>
 		<NoWarn>1701;1702</NoWarn>
 		<WarningsAsErrors>$(WarningsAsErrors)</WarningsAsErrors>
-		<PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb","$(TargetDir)*.ini" "$(TargetDir)createdump.exe</PostBuildEvent>
+		<PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb", "$(TargetDir)*.ini", "$(TargetDir)createdump.exe"</PostBuildEvent>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="build\**" />
-	  <Compile Remove="SystemReadinessWorkstations\**" />
-	  <EmbeddedResource Remove="build\**" />
-	  <EmbeddedResource Remove="SystemReadinessWorkstations\**" />
-	  <None Remove="build\**" />
-	  <None Remove="SystemReadinessWorkstations\**" />
-	  <Page Remove="build\**" />
-	  <Page Remove="SystemReadinessWorkstations\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove=".gitignore" />
-	  <None Remove="build.bat" />
-	  <None Remove="Makefile" />
-		<None Remove="README.md" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="TaskScheduler" Version="2.10.1" />
+		<PackageReference Include="TaskScheduler" Version="2.10.1"/>
 		<PackageReference Include="Octokit" Version="4.0.1"/>
 	</ItemGroup>
 </Project>
