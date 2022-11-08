@@ -6,11 +6,11 @@ namespace SystemReadinessCore.Libraries
 {
     public class ModulesManager
     {
-        public static void InstallModules()
+        public static void InstallModules(string repoName)
         {
             string repositoryUrl = "https://github.com/mrkenhoo/PowerShell-Modules.git";
-            string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw";
-            string sourcePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw\\PowerShell-Modules\\CustomModules";
+            string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\{repoName}";
+            string sourcePath = $"{repositoryPath}\\{repoName}";
             string destinationPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\WindowsPowerShell\\v1.0\\Modules";
 
             if (PrivilegesManager.IsUserAdmin())
@@ -25,16 +25,13 @@ namespace SystemReadinessCore.Libraries
                 if (!Directory.Exists(repositoryPath))
                 {
                     Directory.CreateDirectory(repositoryPath);
-                }
-                if (!Directory.Exists($"{repositoryPath}\\PowerShell-Modules"))
-                {
-                    ProcessManager.NewProcess(fileName: "powershell.exe", args: $"git clone {repositoryUrl} {repositoryPath}\\PowerShell-Modules");
+                    ProcessManager.NewProcess(fileName: "powershell.exe", args: $"git clone {repositoryUrl} {repositoryPath}.git");
                 }
                 else
                 {
-                    ProcessManager.NewProcess(fileName: "powershell.exe", args: $"cd {repositoryPath}\\PowerShell-Modules; git pull");
+                    ProcessManager.NewProcess(fileName: "powershell.exe", args: $"cd {repositoryPath}; git pull");
                 }
-                ProcessManager.NewProcess(fileName: "powershell.exe", args: $"cd {repositoryPath}\\PowerShell-Modules\\;" +
+                ProcessManager.NewProcess(fileName: "powershell.exe", args: $"cd {repositoryPath};" +
                                                                              $" .\\Modules-Installer.ps1 -SourcePath {sourcePath}" +
                                                                              $" -DestinationPath {destinationPath} -InstallationType Deploy");
             }
@@ -46,19 +43,19 @@ namespace SystemReadinessCore.Libraries
                                             icon: MessageBoxImage.Error);
             }
         }
-        public static void UninstallModules()
+        public static void UninstallModules(string repoName)
         {
-            string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw";
-            string sourcePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\sunvalley-srw\\PowerShell-Modules\\CustomModules";
+            string repositoryPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\{repoName}";
+            string sourcePath = $"{repositoryPath}\\{repoName}";
             string destinationPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.System)}\\WindowsPowerShell\\v1.0\\Modules";
 
             if (PrivilegesManager.IsUserAdmin())
             {
-                if (Directory.Exists($"{repositoryPath}\\PowerShell-Modules"))
+                if (Directory.Exists($"{repositoryPath}"))
                 {
                     try
                     {
-                        ProcessManager.NewProcess(fileName: "powershell.exe", args: $"cd {repositoryPath}\\PowerShell-Modules\\;" +
+                        ProcessManager.NewProcess(fileName: "powershell.exe", args: $"cd {repositoryPath};" +
                                                                              $" .\\Modules-Installer.ps1 -SourcePath {sourcePath}" +
                                                                              $" -DestinationPath {destinationPath} -InstallationType Removal");
                     }
