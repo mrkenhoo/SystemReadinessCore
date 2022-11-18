@@ -15,8 +15,5 @@ else
     dotnet test SystemReadinessCore.csproj --no-build --verbosity normal
 }
 
-Remove-Item -Path "bin\" -Recurse -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
-Remove-Item -Path "obj\" -Recurse -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
-
 Write-Host -NoNewLine 'Press any key to continue...'
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
