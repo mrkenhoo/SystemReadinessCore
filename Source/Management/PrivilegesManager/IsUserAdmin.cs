@@ -1,8 +1,8 @@
 ﻿using System.Security.Principal;
 
-namespace SystemReadinessCore.Libraries
+namespace SystemReadinessCore.Management.PrivilegesManager
 {
-    public class PrivilegesManager
+    public static class GetPrivileges
     {
         public static bool IsUserAdmin()
         {

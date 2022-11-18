@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace SystemReadinessCore.Libraries
+namespace SystemReadinessCore.Source.Libraries.DependenciesManager
 {
-    public class DependenciesManager
+    public static class Find
     {
         public static bool IsWingetInstalled()
         {

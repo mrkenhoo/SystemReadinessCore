@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using SystemReadinessCore.Libraries.MessagesManager;
 
-namespace SystemReadinessCore.Libraries
+namespace SystemReadinessCore.Libraries.ProcessManager
 {
-    public class ProcessManager
+    public class NewProcess
     {
-        public static void NewProcess(string fileName, string? args)
+        public static int Run(string fileName, string? args)
         {
             try
             {
@@ -15,18 +16,19 @@ namespace SystemReadinessCore.Libraries
                 if (args != null) { process.StartInfo.Arguments = args; }
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.ErrorDialog = true;
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
                 process.Start();
                 process.WaitForExit();
                 process.Close();
+                return process.ExitCode;
             }
             catch (Exception ex)
             {
-                MessagesManager.ShowMessage(messageBoxText: ex.Message,
-                                            caption: ex.Source,
-                                            button: MessageBoxButton.OK,
-                                            icon: MessageBoxImage.Error);
+                NewMessage.Show(messageBoxText: ex.Message,
+                                caption: ex.Source,
+                                button: MessageBoxButton.OK,
+                                icon: MessageBoxImage.Error);
             }
+            return 0;
         }
     }
 }

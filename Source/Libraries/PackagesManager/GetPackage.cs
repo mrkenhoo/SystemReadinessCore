@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Windows;
+using SystemReadinessCore.Libraries.MessagesManager;
+using SystemReadinessCore.Libraries.ProcessManager;
+using SystemReadinessCore.Management.PrivilegesManager;
+using SystemReadinessCore.Source.Libraries.DependenciesManager;
 
-namespace SystemReadinessCore.Libraries
+namespace SystemReadinessCore.Libraries.PackagesManager
 {
-    public class PackagesManager
+    public static class GetPackage
     {
-        public static void InstallPackage(string packageName, string source)
+        public static void Install(string packageName, string source)
         {
-            if (!PrivilegesManager.IsUserAdmin())
+            if (!GetPrivileges.IsUserAdmin())
             {
-                if (!DependenciesManager.IsWingetInstalled())
+                if (!Find.IsWingetInstalled())
                 {
-                    MessagesManager.ShowMessage(messageBoxText: $"Cannot install {packageName} because winget is either not installed or outdated.",
+                    NewMessage.Show(messageBoxText: $"Cannot install {packageName} because winget is either not installed or outdated.",
                                                 caption: "Error",
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
@@ -20,13 +24,13 @@ namespace SystemReadinessCore.Libraries
                 {
                     try
                     {
-                        ProcessManager.NewProcess(fileName: "winget.exe",
+                        NewProcess.Run(fileName: "winget.exe",
                                                   args: $"install --exact --id {packageName} --source {source}" +
                                                     " --accept-source-agreements --accept-package-agreements");
                     }
                     catch (Exception ex)
                     {
-                        MessagesManager.ShowMessage(messageBoxText: ex.Message,
+                        NewMessage.Show(messageBoxText: ex.Message,
                                                     caption: ex.Source,
                                                     button: MessageBoxButton.OK,
                                                     icon: MessageBoxImage.Error);
@@ -35,7 +39,7 @@ namespace SystemReadinessCore.Libraries
             }
             else
             {
-                MessagesManager.ShowMessage(messageBoxText: $"Before installing {packageName}, make sure you are not running this program as administrator.",
+                NewMessage.Show(messageBoxText: $"Before installing {packageName}, make sure you are not running this program as administrator.",
                                             caption: "Error",
                                             button: MessageBoxButton.OK,
                                             icon: MessageBoxImage.Error);
@@ -43,11 +47,11 @@ namespace SystemReadinessCore.Libraries
         }
         public static void RemovePackage(string packageName, bool silent = false)
         {
-            if (!PrivilegesManager.IsUserAdmin())
+            if (!GetPrivileges.IsUserAdmin())
             {
-                if (!DependenciesManager.IsWingetInstalled())
+                if (!Find.IsWingetInstalled())
                 {
-                    MessagesManager.ShowMessage(messageBoxText: $"Cannot uninstall {packageName} because winget is either not installed or outdated.",
+                    NewMessage.Show(messageBoxText: $"Cannot uninstall {packageName} because winget is either not installed or outdated.",
                                                 caption: "Error",
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
@@ -58,18 +62,18 @@ namespace SystemReadinessCore.Libraries
                     {
                         if (!silent)
                         {
-                            ProcessManager.NewProcess(fileName: "winget.exe",
+                            NewProcess.Run(fileName: "winget.exe",
                                                       args: $"uninstall --exact --id {packageName} --accept-source-agreements");
                         }
                         else
                         {
-                            ProcessManager.NewProcess(fileName: "winget.exe",
+                            NewProcess.Run(fileName: "winget.exe",
                                                       args: $"uninstall --exact --id {packageName} --accept-source-agreements --silent");
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessagesManager.ShowMessage(messageBoxText: ex.Message,
+                        NewMessage.Show(messageBoxText: ex.Message,
                                                     caption: ex.Source,
                                                     button: MessageBoxButton.OK,
                                                     icon: MessageBoxImage.Error);
@@ -78,7 +82,7 @@ namespace SystemReadinessCore.Libraries
             }
             else
             {
-                MessagesManager.ShowMessage(messageBoxText: $"Cannot uninstall {packageName} as administrator.",
+                NewMessage.Show(messageBoxText: $"Cannot uninstall {packageName} as administrator.",
                                             caption: "Error",
                                             button: MessageBoxButton.OK,
                                             icon: MessageBoxImage.Error);
