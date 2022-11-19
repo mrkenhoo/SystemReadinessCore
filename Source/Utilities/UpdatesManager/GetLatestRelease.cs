@@ -1,6 +1,5 @@
 ﻿using Octokit;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using SystemReadinessCore.Libraries.MessagesManager;
 
@@ -13,13 +12,11 @@ namespace SystemReadinessCore.Utilities.UpdatesManager
             try
             {
                 GitHubClient ghclient = new(new ProductHeaderValue(username));
-                IReadOnlyList<Release> releases =
-                    (IReadOnlyList<Release>) await ghclient.Repository.Release.GetLatest(username,
-                                                                                         repoName);
+                Release releases = await ghclient.Repository.Release.GetLatest(username, repoName);
 
-                Version latestVersion = new(releases[0].TagName);
+                Version latestVersion = new(releases.TagName);
                 Version currentVersion = new(assemblyVersion);
-                Uri latestVersionUrl = new(releases[0].AssetsUrl);
+                Uri latestVersionUrl = new(releases.AssetsUrl);
 
                 int UpdateAvailable = currentVersion.CompareTo(latestVersion);
 
@@ -35,11 +32,17 @@ namespace SystemReadinessCore.Utilities.UpdatesManager
                     {
                         try
                         {
-
+                            NewMessage.Show(messageBoxText: "Not implemented yet",
+                                            caption: "Error",
+                                            button: MessageBoxButton.OK,
+                                            icon: MessageBoxImage.Information);
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            throw;
+                            NewMessage.Show(messageBoxText: ex.Message,
+                                            caption: "Error",
+                                            button: MessageBoxButton.OK,
+                                            icon: MessageBoxImage.Information);
                         }
                     }
                 }
