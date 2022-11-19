@@ -13,10 +13,10 @@
 		<Copyright>GNU General Public License v3.0</Copyright>
 		<RepositoryUrl>https://github.com/mrkenhoo/SystemReadinessCore/</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.0.3</AssemblyVersion>
-		<FileVersion>1.0.0.3</FileVersion>
+		<AssemblyVersion>1.0.0.4</AssemblyVersion>
+		<FileVersion>1.0.0.4</FileVersion>
 		<AssemblyName>SystemReadinessCore</AssemblyName>
-		<Version>1.0.0.3</Version>
+		<Version>1.0.0.4</Version>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<LangVersion>latest</LangVersion>
 		<Platforms>x64</Platforms>
@@ -53,7 +53,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="build/**"/>
+		<None Remove="build/**" />
 		<None Remove="build.ps1" />
 		<None Remove="global.json" />
 	</ItemGroup>
