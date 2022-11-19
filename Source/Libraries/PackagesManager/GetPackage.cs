@@ -45,7 +45,7 @@ namespace SystemReadinessCore.Libraries.PackagesManager
                                             icon: MessageBoxImage.Error);
             }
         }
-        public static void RemovePackage(string packageName, bool silent = false)
+        public static void Uninstall(string packageName, bool silent = false)
         {
             if (!GetPrivileges.IsUserAdmin())
             {
