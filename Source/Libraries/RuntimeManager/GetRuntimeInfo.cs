@@ -4,7 +4,7 @@ namespace SystemReadinessCore.Libraries.RuntimeManager
 {
     public static partial class Runtime
     {
-        class GetRuntimeInfo
+        public partial class GetRuntimeInfo
         {
 
             #region Assembly Attribute Accessors
