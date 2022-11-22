@@ -13,11 +13,11 @@ namespace SystemReadinessCore.Utilities.ModulesManager
         {
             if (GetPrivileges.IsUserAdmin())
             {
-                if (Directory.Exists($"{RepositoryPath}"))
+                if (Directory.Exists($"{RepositoryPath}\\{RepositoryName}"))
                 {
                     try
                     {
-                        NewProcess.Run(fileName: "powershell.exe", args: $"cd {RepositoryPath};" +
+                        NewProcess.Run(fileName: "powershell.exe", args: $"cd {RepositoryPath}\\{RepositoryName};" +
                                                                          $" .\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
                                                                          $" -DestinationPath {DestinationPath} -InstallationType Removal");
                     }
@@ -28,6 +28,13 @@ namespace SystemReadinessCore.Utilities.ModulesManager
                                                 button: MessageBoxButton.OK,
                                                 icon: MessageBoxImage.Error);
                     }
+                }
+                else
+                {
+                    NewMessage.Show(messageBoxText: "Cannot uninstall PowerShell modules because they were not found.",
+                                    caption: "Error",
+                                    button: MessageBoxButton.OK,
+                                    icon: MessageBoxImage.Error);
                 }
             }
             else
