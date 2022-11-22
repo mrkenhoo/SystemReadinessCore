@@ -49,9 +49,9 @@ namespace SystemReadinessCore.Utilities.UpdatesManager
                 else if (UpdateAvailable > 0)
                 {
                     NewMessage.Show(messageBoxText: "You are using a newer version than the latest release",
-                                    caption: "Information",
+                                    caption: "Warning",
                                     button: MessageBoxButton.OK,
-                                    icon: MessageBoxImage.Information);
+                                    icon: MessageBoxImage.Warning);
                 }
                 else
                 {
