@@ -7,7 +7,7 @@ namespace SystemReadinessCore.Libraries.ProcessManager
 {
     public class NewProcess
     {
-        public static int Run(string fileName, string? args)
+        public static int Run(string fileName, string? args, bool RunAsAdministrator = false)
         {
             try
             {
@@ -16,10 +16,11 @@ namespace SystemReadinessCore.Libraries.ProcessManager
                 if (args != null) { process.StartInfo.Arguments = args; }
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.ErrorDialog = true;
+                if (RunAsAdministrator) { process.StartInfo.Verb = "runas"; }
                 process.Start();
                 process.WaitForExit();
                 process.Close();
-                return process.ExitCode;
+                process.Dispose();
             }
             catch (Exception ex)
             {
@@ -28,7 +29,7 @@ namespace SystemReadinessCore.Libraries.ProcessManager
                                 button: MessageBoxButton.OK,
                                 icon: MessageBoxImage.Error);
             }
-            return 0;
+            return Environment.ExitCode;
         }
     }
 }
