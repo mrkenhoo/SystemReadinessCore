@@ -6,10 +6,9 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<ErrorReport>none</ErrorReport>
 		<Authors>Ken Hoo</Authors>
-		<UseWPF>true</UseWPF>
 		<Company>Ken Hoo</Company>
 		<Product>System Readiness Core</Product>
-		<Description>System Readiness for Workstations is an automated privacy-focused configuration tool which debloats and tweaks any compatible Windows version and edition to improve it's performance and reduce the user's footprint as much as possible.</Description>
+		<Description>A library which provides a set of useful commands for developing GUI applications.</Description>
 		<Copyright>GNU General Public License v3.0</Copyright>
 		<RepositoryUrl>https://github.com/mrkenhoo/SystemReadinessCore/</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
@@ -17,7 +16,6 @@
 		<FileVersion>1.0.0.4</FileVersion>
 		<AssemblyName>SystemReadinessCore</AssemblyName>
 		<Version>1.0.0.4</Version>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<LangVersion>latest</LangVersion>
 		<Platforms>x64</Platforms>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
