@@ -3,21 +3,20 @@ using System.IO;
 
 namespace SystemReadinessCore.Source.Libraries.DependenciesManager
 {
-    public static class Find
+    public static class GetDependencies
     {
+        private static readonly string WingetExecutable =
+                $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Microsoft\\WindowsApps\\winget.exe";
+
         public static bool IsWingetInstalled()
         {
-            string LocalWindowsAppsDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Microsoft\\WindowsApps\\";
-            bool ExecutableExists;
-            if (File.Exists(LocalWindowsAppsDir + "winget.exe"))
+            switch(File.Exists(WingetExecutable))
             {
-                ExecutableExists = true;
+                case true:
+                    return true;
+                case false:
+                    return false;
             }
-            else
-            {
-                ExecutableExists = false;
-            }
-            return ExecutableExists;
         }
     }
 }

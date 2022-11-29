@@ -6,13 +6,12 @@ namespace SystemReadinessCore.Utilities.RuntimeHandler
     {
         public static bool IsSystemCompatible()
         {
-            if (Environment.OSVersion.Version.Build < 19041)
+            switch (Environment.OSVersion.Version.Build < 19041)
             {
-                return false;
-            }
-            else
-            {
-                return true;
+                case true:
+                    return true;
+                case false:
+                    return false;
             }
         }
     }

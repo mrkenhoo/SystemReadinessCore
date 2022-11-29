@@ -1,65 +1,48 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
-using SystemReadinessCore.Libraries.MessagesManager;
-using SystemReadinessCore.Libraries.ProcessManager;
-using SystemReadinessCore.Management.PrivilegesManager;
-using static SystemReadinessCore.Libraries.RuntimeManager.Runtime;
+using SystemReadinessCore.Source.Libraries.ProcessManager;
+using SystemReadinessCore.Source.Management.PrivilegesManager;
+using static SystemReadinessCore.Source.Libraries.RuntimeManager.Runtime;
 
 namespace SystemReadinessCore.Utilities.ModulesManager
 {
     public partial class GetModules
     {
-        private static string RepositoryName => "PowerShell-Modules";
-        private static string RepositoryUrl => "https://github.com/mrkenhoo/PowerShell-Modules.git";
-        private static string RepositoryPath =>
+        private static readonly string RepositoryName = "PowerShell-Modules";
+        private static readonly string RepositoryUrl = "https://github.com/mrkenhoo/PowerShell-Modules.git";
+        private static readonly string RepositoryPath =
             $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\{GetRuntimeInfo.AssemblyTitle}";
-        private static string SourcePath => $".\\CustomModules";
-        private static string DestinationPath =>
+        private static readonly string SourcePath = $".\\CustomModules";
+        private static readonly string DestinationPath =
             $"{Environment.GetFolderPath(Environment.SpecialFolder.Windows)}\\System32\\WindowsPowerShell\\v1.0\\Modules";
+        private static readonly string GitDirectory =
+            $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\Git\\bin\\git.exe";
 
         public static void InstallModules()
         {
-            if (GetPrivileges.IsUserAdmin())
+            try
             {
-                try
+                if (!File.Exists(GitDirectory)) { throw new FileNotFoundException(); }
+
+                switch (File.Exists(RepositoryPath))
                 {
-                    if (!File.Exists($"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\Git\\bin\\git.exe"))
-                    {
-                        NewMessage.Show(messageBoxText: "Cannot install PowerShell modules, git was not found.",
-                                        caption: "Error",
-                                        button: MessageBoxButton.OK,
-                                        icon: MessageBoxImage.Error);
-                    }
-                    if (!Directory.Exists(RepositoryPath))
-                    {
+                    case true:
+                        NewProcess.Run(FileName: "powershell.exe", Args: $"cd {RepositoryPath}\\{RepositoryName}; git pull" +
+                                                                     $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
+                                                                     $" -DestinationPath {DestinationPath} -InstallationType Deploy");
+                        break;
+                    case false:
                         Directory.CreateDirectory(RepositoryPath);
-                        NewProcess.Run(fileName: "powershell.exe", args: $"git clone {RepositoryUrl} {RepositoryPath}\\{RepositoryName}" +
+                        NewProcess.Run(FileName: "powershell.exe", Args: $"git clone {RepositoryUrl} {RepositoryPath}\\{RepositoryName}" +
                                                                          $"cd {RepositoryPath}\\{RepositoryName};" +
                                                                          $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
                                                                          $" -DestinationPath {DestinationPath} -InstallationType Deploy");
-                    }
-                    else
-                    {
-                        NewProcess.Run(fileName: "powershell.exe", args: $"cd {RepositoryPath}\\{RepositoryName}; git pull" +
-                                                                         $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
-                                                                         $" -DestinationPath {DestinationPath} -InstallationType Deploy");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    NewMessage.Show(messageBoxText: ex.Message,
-                                    caption: ex.Source,
-                                    button: MessageBoxButton.OK,
-                                    icon: MessageBoxImage.Error);
+                        break;
                 }
             }
-            else
+            catch (Exception)
             {
-                NewMessage.Show(messageBoxText: "Cannot install PowerShell modules without administrator privileges.",
-                                caption: "Error",
-                                button: MessageBoxButton.OK,
-                                icon: MessageBoxImage.Error);
+                throw;
             }
         }
     }

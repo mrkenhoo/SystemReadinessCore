@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace SystemReadinessCore.Libraries.RuntimeManager
+namespace SystemReadinessCore.Source.Libraries.RuntimeManager
 {
     public static partial class Runtime
     {

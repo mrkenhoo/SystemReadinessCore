@@ -1,35 +1,40 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows;
-using SystemReadinessCore.Libraries.MessagesManager;
+using SystemReadinessCore.Source.Management.PrivilegesManager;
 
-namespace SystemReadinessCore.Libraries.ProcessManager
+namespace SystemReadinessCore.Source.Libraries.ProcessManager
 {
     public class NewProcess
     {
-        public static int Run(string fileName, string? args, bool RunAsAdministrator = false)
+        public static int Run(string FileName, string? Args, bool RunAsAdministrator = false)
         {
             try
             {
+                if (!GetPrivileges.IsUserAdmin()) { throw new AccessViolationException(); }
+
                 Process process = new();
-                process.StartInfo.FileName = fileName;
-                if (args != null) { process.StartInfo.Arguments = args; }
+                process.StartInfo.FileName = FileName;
+                if (Args != null) { process.StartInfo.Arguments = Args; }
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.ErrorDialog = true;
-                if (RunAsAdministrator) { process.StartInfo.Verb = "runas"; }
+
+                switch (RunAsAdministrator)
+                {
+                    case true:
+                        process.StartInfo.Verb = "runas";
+                        break;
+                }
                 process.Start();
                 process.WaitForExit();
                 process.Close();
                 process.Dispose();
+
+                return process.ExitCode;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                NewMessage.Show(messageBoxText: ex.Message,
-                                caption: ex.Source,
-                                button: MessageBoxButton.OK,
-                                icon: MessageBoxImage.Error);
+                throw;
             }
-            return Environment.ExitCode;
         }
     }
 }
