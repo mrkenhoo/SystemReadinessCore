@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32.TaskScheduler;
 using System;
-using SystemReadinessCore.Source.Management.PrivilegesManager;
+using SystemReadinessCore.Management.PrivilegesManager;
 
 namespace SystemReadinessCore.Management.TaskManager
 {

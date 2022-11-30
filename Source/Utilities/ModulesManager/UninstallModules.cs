@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using SystemReadinessCore.Source.Libraries.ProcessManager;
-using SystemReadinessCore.Source.Management.PrivilegesManager;
+using SystemReadinessCore.Libraries.ProcessManager;
+using SystemReadinessCore.Management.PrivilegesManager;
 
 namespace SystemReadinessCore.Utilities.ModulesManager
 {
@@ -9,23 +9,30 @@ namespace SystemReadinessCore.Utilities.ModulesManager
     {
         public static void UninstallModules()
         {
-			try
-			{
-                switch (File.Exists(RepositoryPath))
+            if (GetPrivileges.IsUserAdmin())
+            {
+                try
                 {
-                    case true:
-                        NewProcess.Run(FileName: "powershell.exe", Args: $"cd {RepositoryPath}\\{RepositoryName}; git pull" +
-                                                                     $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
-                                                                     $" -DestinationPath {DestinationPath} -InstallationType Removal");
-                        break;
-                    case false:
-                        throw new DirectoryNotFoundException();
+                    switch (File.Exists(RepositoryPath))
+                    {
+                        case true:
+                            NewProcess.Run(FileName: "powershell.exe", Args: $"cd {RepositoryPath}\\{RepositoryName}; git pull" +
+                                                                         $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
+                                                                         $" -DestinationPath {DestinationPath} -InstallationType Removal");
+                            break;
+                        case false:
+                            throw new DirectoryNotFoundException();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
                 }
             }
-			catch (Exception)
-			{
-				throw;
-			}
+            else
+            {
+                throw new AccessViolationException();
+            }
         }
     }
 }

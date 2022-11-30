@@ -1,17 +1,17 @@
 ﻿using System;
-using SystemReadinessCore.Source.Libraries.DependenciesManager;
-using SystemReadinessCore.Source.Libraries.ProcessManager;
-using SystemReadinessCore.Source.Management.PrivilegesManager;
+using SystemReadinessCore.Libraries.DependenciesManager;
+using SystemReadinessCore.Libraries.ProcessManager;
+using SystemReadinessCore.Management.PrivilegesManager;
 
-namespace SystemReadinessCore.Source.Libraries.PackagesManager
+namespace SystemReadinessCore.Libraries.PackagesManager
 {
     public static class GetPackage
     {
         public static int Install(string packageName, string source)
         {
-            try
+            if (GetPrivileges.IsUserAdmin())
             {
-                if (!GetPrivileges.IsUserAdmin())
+                try
                 {
                     switch (GetDependencies.IsWingetInstalled())
                     {
@@ -23,21 +23,21 @@ namespace SystemReadinessCore.Source.Libraries.PackagesManager
                             return Environment.ExitCode;
                     }
                 }
-                else
+                catch (Exception)
                 {
-                    throw new AccessViolationException();
+                    throw;
                 }
             }
-            catch (Exception)
+            else
             {
-                throw;
+                throw new AccessViolationException();
             }
         }
         public static int Uninstall(string packageName)
         {
-            try
+            if (GetPrivileges.IsUserAdmin())
             {
-                if (!GetPrivileges.IsUserAdmin())
+                try
                 {
                     switch (GetDependencies.IsWingetInstalled())
                     {
@@ -48,14 +48,14 @@ namespace SystemReadinessCore.Source.Libraries.PackagesManager
                             throw new Exception();
                     }
                 }
-                else
+                catch (Exception)
                 {
-                    throw new Exception();
+                    throw;
                 }
             }
-            catch (Exception)
+            else
             {
-                throw;
+                throw new AccessViolationException();
             }
         }
     }

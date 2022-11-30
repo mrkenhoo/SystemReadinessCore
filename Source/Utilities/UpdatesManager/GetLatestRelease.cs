@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace SystemReadinessCore.Source.Utilities.UpdatesManager
+namespace SystemReadinessCore.Utilities.UpdatesManager
 {
     public partial class Updater
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32.TaskScheduler;
 using System;
-using SystemReadinessCore.Source.Management.PrivilegesManager;
+using SystemReadinessCore.Management.PrivilegesManager;
 
 namespace SystemReadinessCore.Management.TaskManager
 {
@@ -13,31 +13,38 @@ namespace SystemReadinessCore.Management.TaskManager
                                  string Description,
                                  short NumberOfDays)
         {
-            try
+            if (GetPrivileges.IsUserAdmin())
             {
-                TaskService ts = new();
-                TaskDefinition td = ts.NewTask();
+                try
+                {
+                    TaskService ts = new();
+                    TaskDefinition td = ts.NewTask();
 
-                td.RegistrationInfo.Description = Description;
+                    td.RegistrationInfo.Description = Description;
 
-                td.Triggers.Add(
-                    new DailyTrigger
-                    {
-                        DaysInterval = NumberOfDays
-                    });
+                    td.Triggers.Add(
+                        new DailyTrigger
+                        {
+                            DaysInterval = NumberOfDays
+                        });
 
-                td.Actions.Add(
-                    new ExecAction(
-                            ExecutableFile,
-                            Arguments,
-                            WorkingDirectory)
-                    );
+                    td.Actions.Add(
+                        new ExecAction(
+                                ExecutableFile,
+                                Arguments,
+                                WorkingDirectory)
+                        );
 
-                ts.RootFolder.RegisterTaskDefinition(TaskName, td);
+                    ts.RootFolder.RegisterTaskDefinition(TaskName, td);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
-            catch (Exception)
+            else
             {
-                throw;
+                throw new AccessViolationException();
             }
         }
     }

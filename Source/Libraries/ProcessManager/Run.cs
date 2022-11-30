@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using SystemReadinessCore.Source.Management.PrivilegesManager;
+using SystemReadinessCore.Management.PrivilegesManager;
 
-namespace SystemReadinessCore.Source.Libraries.ProcessManager
+namespace SystemReadinessCore.Libraries.ProcessManager
 {
     public class NewProcess
     {
@@ -10,8 +10,6 @@ namespace SystemReadinessCore.Source.Libraries.ProcessManager
         {
             try
             {
-                if (!GetPrivileges.IsUserAdmin()) { throw new AccessViolationException(); }
-
                 Process process = new();
                 process.StartInfo.FileName = FileName;
                 if (Args != null) { process.StartInfo.Arguments = Args; }
