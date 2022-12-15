@@ -15,7 +15,7 @@ namespace SystemReadinessCore.Utilities.RuntimeHandler
 
                 if (ProcessList != null && ProcessList.Any() && ProcessList.Length > 1)
                 {
-                    throw new InvalidOperationException();
+                    return true;
                 }
             }
             catch (Exception)
