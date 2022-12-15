@@ -1,27 +1,37 @@
 ﻿using Octokit;
 using System;
-using System.Threading.Tasks;
 
 namespace SystemReadinessCore.Utilities.UpdatesManager
 {
     public partial class Updater
     {
-        public static async Task<int> GetLatestRelease(string username, string repoName, string assemblyVersion)
+        private static int NewUpdateAvailable { get; set; }
+
+        public static async void GetLatestRelease(string username, string repoName, string assemblyVersion)
         {
             try
             {
                 GitHubClient ghclient = new(new ProductHeaderValue(username));
-                Release releases = await ghclient.Repository.Release.GetLatest(username, repoName);
+                Release latestRelease = await ghclient.Repository.Release.GetLatest(username, repoName);
 
-                Version latestVersion = new(releases.TagName);
+                Version latestVersion = new(latestRelease.TagName);
                 Version currentVersion = new(assemblyVersion);
-                Uri latestVersionUrl = new(releases.AssetsUrl);
+                Uri latestVersionUrl = new(latestRelease.AssetsUrl);
 
-                return currentVersion.CompareTo(latestVersion);
+                NewUpdateAvailable = currentVersion.CompareTo(latestVersion);
             }
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public static bool IsUpdateAvailable()
+        {
+            switch (NewUpdateAvailable)
+            {
+                case 0: return true;
+                default: return false;
             }
         }
     }
