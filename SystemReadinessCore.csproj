@@ -12,10 +12,10 @@
 		<Copyright>GNU General Public License v3.0</Copyright>
 		<RepositoryUrl>https://github.com/mrkenhoo/SystemReadinessCore/</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.0.6</AssemblyVersion>
-		<FileVersion>1.0.0.6</FileVersion>
+		<AssemblyVersion>1.0.1.0</AssemblyVersion>
+		<FileVersion>1.0.1.0</FileVersion>
 		<AssemblyName>SystemReadinessCore</AssemblyName>
-		<Version>1.0.0.6</Version>
+		<Version>1.0.1.0</Version>
 		<LangVersion>latest</LangVersion>
 		<Platforms>x64</Platforms>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
