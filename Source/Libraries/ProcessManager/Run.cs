@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using SystemReadinessCore.Management.PrivilegesManager;
 
 namespace SystemReadinessCore.Libraries.ProcessManager
 {
     public class NewProcess
     {
+        public static int ProcessExitCode { get => ProcessExitCode; set => ProcessExitCode = value; }
+
         public static int Run(string FileName, string? Args, bool RunAsAdministrator = false)
         {
             try
@@ -24,10 +25,11 @@ namespace SystemReadinessCore.Libraries.ProcessManager
                 }
                 process.Start();
                 process.WaitForExit();
+                ProcessExitCode = process.ExitCode;
                 process.Close();
                 process.Dispose();
 
-                return process.ExitCode;
+                return ProcessExitCode;
             }
             catch (Exception)
             {
