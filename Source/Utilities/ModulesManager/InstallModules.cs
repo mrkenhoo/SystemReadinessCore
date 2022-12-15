@@ -49,7 +49,7 @@ namespace SystemReadinessCore.Utilities.ModulesManager
             }
             else
             {
-                throw new AccessViolationException();
+                throw new UnauthorizedAccessException();
             }
         }
     }

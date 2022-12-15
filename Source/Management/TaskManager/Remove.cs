@@ -22,7 +22,7 @@ namespace SystemReadinessCore.Management.TaskManager
             }
             else
             {
-                throw new AccessViolationException();
+                throw new UnauthorizedAccessException();
             }
         }
     }

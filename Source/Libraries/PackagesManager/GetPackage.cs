@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using SystemReadinessCore.Libraries.DependenciesManager;
 using SystemReadinessCore.Libraries.ProcessManager;
 using SystemReadinessCore.Management.PrivilegesManager;
@@ -30,7 +31,7 @@ namespace SystemReadinessCore.Libraries.PackagesManager
             }
             else
             {
-                throw new AccessViolationException();
+                throw new UnauthorizedAccessException();
             }
         }
         public static int Uninstall(string packageName)
@@ -45,7 +46,7 @@ namespace SystemReadinessCore.Libraries.PackagesManager
                             NewProcess.Run(FileName: "winget.exe", Args: $"uninstall --exact --id {packageName} --accept-source-agreements");
                             return Environment.ExitCode;
                         case false:
-                            throw new Exception();
+                            throw new FileNotFoundException();
                     }
                 }
                 catch (Exception)
@@ -55,7 +56,7 @@ namespace SystemReadinessCore.Libraries.PackagesManager
             }
             else
             {
-                throw new AccessViolationException();
+                throw new UnauthorizedAccessException();
             }
         }
     }
