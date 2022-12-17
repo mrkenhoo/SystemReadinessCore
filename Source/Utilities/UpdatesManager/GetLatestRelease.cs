@@ -25,14 +25,5 @@ namespace SystemReadinessCore.Utilities.UpdatesManager
                 throw;
             }
         }
-
-        public static bool IsUpdateAvailable()
-        {
-            switch (NewUpdateAvailable)
-            {
-                case 0: return true;
-                default: return false;
-            }
-        }
     }
 }
