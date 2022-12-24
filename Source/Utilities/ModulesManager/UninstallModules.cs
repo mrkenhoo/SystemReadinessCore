@@ -13,6 +13,13 @@ namespace SystemReadinessCore.Libraries.ModulesManager
             {
                 try
                 {
+                    switch (AreModulesInstalled())
+                    {
+                        case false:
+                            Environment.Exit(1);
+                            break;
+                    }
+
                     switch (File.Exists(RepositoryPath))
                     {
                         case true:
