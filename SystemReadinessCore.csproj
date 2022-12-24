@@ -12,10 +12,10 @@
 		<Copyright>GNU General Public License v3.0</Copyright>
 		<RepositoryUrl>https://github.com/mrkenhoo/SystemReadinessCore/</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyVersion>1.0.1.1</AssemblyVersion>
-		<FileVersion>1.0.1.1</FileVersion>
+		<AssemblyVersion>1.0.1.2</AssemblyVersion>
+		<FileVersion>1.0.1.2</FileVersion>
 		<AssemblyName>SystemReadinessCore</AssemblyName>
-		<Version>1.0.1.1</Version>
+		<Version>1.0.1.2</Version>
 		<LangVersion>latest</LangVersion>
 		<Platforms>x64</Platforms>
 		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -51,13 +51,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="build/**" />
-		<None Remove="build.ps1" />
-		<None Remove="global.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="TaskScheduler" Version="2.10.1" />
-		<PackageReference Include="Octokit" Version="4.0.1" />
+		<PackageReference Include="Octokit" Version="4.0.3" />
 	</ItemGroup>
 </Project>
