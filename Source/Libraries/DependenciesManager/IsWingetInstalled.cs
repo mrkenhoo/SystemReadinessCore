@@ -6,7 +6,8 @@ namespace SystemReadinessCore.Libraries.DependenciesManager
     public static class GetDependencies
     {
         private static readonly string WingetExecutable =
-                $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Microsoft\\WindowsApps\\winget.exe";
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) +
+                    "Microsoft\\WindowsApps\\winget.exe";
 
         public static bool IsWingetInstalled()
         {
