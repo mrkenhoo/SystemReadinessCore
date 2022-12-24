@@ -26,7 +26,7 @@ namespace SystemReadinessCore.Libraries.ModulesManager
                 {
                     if (!File.Exists(GitDirectory)) { throw new FileNotFoundException(); }
 
-                    switch (File.Exists(RepositoryPath))
+                    switch (Directory.Exists(RepositoryPath))
                     {
                         case true:
                             NewProcess.Run(FileName: "powershell.exe", Args: $"cd {RepositoryPath}\\{RepositoryName}; git pull;" +
