@@ -1,18 +1,27 @@
 ﻿using System;
 
-namespace SystemReadinessCore.Utilities.RuntimeHandler
+namespace SystemReadinessCore.Libraries.RuntimeManager
 {
     public partial class Runtime
     {
+        public static readonly int WindowsMajorVersion = Environment.OSVersion.Version.Major;
+        public static readonly int WindowsBuildVersion = Environment.OSVersion.Version.Build;
+
         public static bool IsSystemCompatible()
         {
-            switch (Environment.OSVersion.Version.Build < 19041)
+            if (WindowsMajorVersion != 10)
             {
-                case true:
-                    return true;
-                case false:
-                    return false;
+                throw new NotSupportedException();
             }
+            else if (WindowsBuildVersion < 19041)
+            {
+                return false;
+            }
+            else if (WindowsBuildVersion == 20348)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
