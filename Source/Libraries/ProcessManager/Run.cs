@@ -1,13 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace SystemReadinessCore.Libraries.ProcessManager
 {
     public class NewProcess
     {
-        public static int ProcessExitCode { get => ProcessExitCode; set => ProcessExitCode = value; }
-
-        public static int Run(string FileName, string? Args, bool RunAsAdministrator = false)
+        public static void Run(string FileName, string? Args, bool RunAsAdministrator = false)
         {
             try
             {
@@ -22,16 +21,23 @@ namespace SystemReadinessCore.Libraries.ProcessManager
                     case true:
                         process.StartInfo.Verb = "runas";
                         break;
+                    default:
+                        break;
                 }
+
                 process.Start();
                 process.WaitForExit();
-                ProcessExitCode = process.ExitCode;
-                process.Close();
                 process.Dispose();
-
-                return ProcessExitCode;
             }
-            catch (Exception)
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Win32Exception)
+            {
+                throw;
+            }
+            catch (PlatformNotSupportedException)
             {
                 throw;
             }
