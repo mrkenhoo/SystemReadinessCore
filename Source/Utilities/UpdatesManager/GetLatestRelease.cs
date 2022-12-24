@@ -1,7 +1,8 @@
 ﻿using Octokit;
 using System;
+using System.Reflection;
 
-namespace SystemReadinessCore.Utilities.UpdatesManager
+namespace SystemReadinessCore.Libraries.UpdatesManager
 {
     public partial class Updater
     {
@@ -9,6 +10,19 @@ namespace SystemReadinessCore.Utilities.UpdatesManager
 
         public static async void GetLatestRelease(string username, string repoName, string assemblyVersion)
         {
+            if (username == null)
+            {
+                throw new ArgumentNullException(nameof(username));
+            }
+            else if (repoName == null)
+            {
+                throw new ArgumentNullException(nameof(repoName));
+            }
+            else if (assemblyVersion == null)
+            {
+                throw new ArgumentNullException(nameof(assemblyVersion));
+            }
+
             try
             {
                 GitHubClient ghclient = new(new ProductHeaderValue(username));

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Principal;
 
-namespace SystemReadinessCore.Management.PrivilegesManager
+namespace SystemReadinessCore.Libraries.PrivilegesManager
 {
     public static class GetPrivileges
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
+using SystemReadinessCore.Libraries.PrivilegesManager;
 using SystemReadinessCore.Libraries.ProcessManager;
-using SystemReadinessCore.Management.PrivilegesManager;
 
-namespace SystemReadinessCore.Utilities.ModulesManager
+namespace SystemReadinessCore.Libraries.ModulesManager
 {
     public partial class GetModules
     {

@@ -1,4 +1,4 @@
-﻿namespace SystemReadinessCore.Utilities.UpdatesManager
+﻿namespace SystemReadinessCore.Libraries.UpdatesManager
 {
     public partial class Updater
     {

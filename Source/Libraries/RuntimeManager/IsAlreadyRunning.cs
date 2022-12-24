@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace SystemReadinessCore.Utilities.RuntimeHandler
+namespace SystemReadinessCore.Libraries.RuntimeManager
 {
     public partial class Runtime
     {

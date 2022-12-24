@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
+using SystemReadinessCore.Libraries.PrivilegesManager;
 using SystemReadinessCore.Libraries.ProcessManager;
-using SystemReadinessCore.Management.PrivilegesManager;
 using static SystemReadinessCore.Libraries.RuntimeManager.Runtime;
 
-namespace SystemReadinessCore.Utilities.ModulesManager
+namespace SystemReadinessCore.Libraries.ModulesManager
 {
     public partial class GetModules
     {
@@ -29,13 +29,13 @@ namespace SystemReadinessCore.Utilities.ModulesManager
                     switch (File.Exists(RepositoryPath))
                     {
                         case true:
-                            NewProcess.Run(FileName: "powershell.exe", Args: $"cd {RepositoryPath}\\{RepositoryName}; git pull" +
-                                                                         $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
-                                                                         $" -DestinationPath {DestinationPath} -InstallationType Deploy");
+                            NewProcess.Run(FileName: "powershell.exe", Args: $"cd {RepositoryPath}\\{RepositoryName}; git pull;" +
+                                                                             $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
+                                                                             $" -DestinationPath {DestinationPath} -InstallationType Deploy");
                             break;
                         case false:
                             Directory.CreateDirectory(RepositoryPath);
-                            NewProcess.Run(FileName: "powershell.exe", Args: $"git clone {RepositoryUrl} {RepositoryPath}\\{RepositoryName}" +
+                            NewProcess.Run(FileName: "powershell.exe", Args: $"git clone {RepositoryUrl} {RepositoryPath}\\{RepositoryName};" +
                                                                              $"cd {RepositoryPath}\\{RepositoryName};" +
                                                                              $".\\Modules-Installer.ps1 -SourcePath {SourcePath}" +
                                                                              $" -DestinationPath {DestinationPath} -InstallationType Deploy");
