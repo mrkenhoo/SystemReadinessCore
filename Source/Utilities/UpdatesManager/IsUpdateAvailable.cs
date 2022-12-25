@@ -4,11 +4,18 @@
     {
         public static bool IsUpdateAvailable()
         {
-            return NewUpdateAvailable switch
+            if (NewUpdateAvailable < 0)
             {
-                0 => true,
-                _ => false,
-            };
+                return true;
+            }
+            else if (NewUpdateAvailable > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
