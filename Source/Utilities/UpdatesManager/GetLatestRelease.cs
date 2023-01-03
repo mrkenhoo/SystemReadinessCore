@@ -1,6 +1,5 @@
 ﻿using Octokit;
 using System;
-using System.Reflection;
 
 namespace SystemReadinessCore.Libraries.UpdatesManager
 {
