@@ -6,27 +6,31 @@ namespace SystemReadinessCore.Libraries.ProcessManager
 {
     public class NewProcess
     {
-        public static void Run(string FileName, string? Args, bool RunAsAdministrator = false)
+        private protected static int ExitCode { get; private set; }
+
+        public static int Run(string FileName, string? Args, bool RunAsAdministrator = false)
         {
             try
             {
                 Process process = new();
                 process.StartInfo.FileName = FileName;
                 if (Args != null) { process.StartInfo.Arguments = Args; }
-                process.StartInfo.UseShellExecute = false;
                 process.StartInfo.ErrorDialog = true;
 
                 switch (RunAsAdministrator)
                 {
                     case true:
                         process.StartInfo.Verb = "runas";
+                        process.StartInfo.UseShellExecute = true;
                         break;
                     default:
+                        process.StartInfo.UseShellExecute = false;
                         break;
                 }
 
                 process.Start();
                 process.WaitForExit();
+                ExitCode = process.ExitCode;
                 process.Dispose();
             }
             catch (InvalidOperationException)
@@ -41,6 +45,16 @@ namespace SystemReadinessCore.Libraries.ProcessManager
             {
                 throw;
             }
+            catch (SystemException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return ExitCode;
         }
     }
 }
