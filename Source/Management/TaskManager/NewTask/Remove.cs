@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32.TaskScheduler;
 using System;
+using System.IO;
 using SystemReadinessCore.Libraries.PrivilegesManager;
 
 namespace SystemReadinessCore.Management.TaskManager
@@ -13,7 +14,14 @@ namespace SystemReadinessCore.Management.TaskManager
                 try
                 {
                     TaskService ts = new();
+
+                    if (ts.FindTask(TaskName) == null)
+                    {
+                        throw new IOException($"The task {TaskName} does not exist");
+                    }
+
                     ts.RootFolder.DeleteTask(TaskName, exceptionOnNotExists: true);
+                    ts.Dispose();
                 }
                 catch (Exception)
                 {
